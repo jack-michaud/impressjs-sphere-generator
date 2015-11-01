@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+		<link href='https://fonts.googleapis.com/css?family=Khula:400,600' rel='stylesheet' type='text/css'>
+		<link href="styles.css" rel="stylesheet">
+	</head>
+	<body>
+	<div class="container">
+		<h1>Impress.js Presentation Generator</h1>
+		<p style="font-size:15pt;opacity:.8;">Generates a "presentation sphere"</p>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-12">
+						Number of slides: <br><input class="form-control" id="no" placeholder="no." type="number">
+					</div>
+				</div><br>
+				<div class="row">
+					<div class="col-md-12">
+						Color of Slides: <div class="input-group">
+		      				<div class="input-group-addon">#</div>
+		      				<input type="text" class="form-control" id="color" placeholder="Hex Code">
+		      			</div>
+					</div>
+      			</div>
+			</div>
+			<div class="col-md-offset-1 col-md-7">
+				Custom CSS:
+				<textarea style="width:60vh" id="css" class="form-control" rows="8"></textarea>
+			</div>
+		</div><br>
+		
+		<div class="row">
+
+		</div>
+		<div class="row">
+			<div class="col-md-3"><button onclick="generate()">Generate!</button></div>
+		</div><br>
+		<div class="row">
+			<div class="col-md-2">
+				Code Preview
+			</div>
+			<div class="col-md-8">
+				<textarea style="width:100vh" id="code" class="form-control" rows="8"></textarea>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	<script type="text/javascript">
+		function generate(){
+			var numberOfSlides = $("#no").val();
+			var impressString = "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Generated</title>";
+			impressString = impressString + "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\" integrity=\"sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==\" crossorigin=\"anonymous\"><style>.step {width: 800px; height:600px;font-size: 50pt;opacity: 1;background-color:#"+ $("#color").val() +";}" + $("#css").val() + "</style></head><body><div id=\"impress\">";
+
+			//begin dynamically generating slides
+			for (var i = 0; i < numberOfSlides; i++) {
+				impressString = impressString + "<div class=\"step text-center\"  data-x=\"" + i*1000 + "\" data-y=\"0\"><p>Slide " + (i+1) + "</p></div>";
+			};
+
+			impressString = impressString + "</div><script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.min.js\"><\/script><script>impress().init();<\/script></body></html>";
+			$("#code").val(impressString);
+		}	
+	</script>
+	</body>
+</html>
