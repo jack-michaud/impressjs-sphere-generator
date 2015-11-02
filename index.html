@@ -22,6 +22,16 @@
 		      				<input type="text" class="form-control" id="color" placeholder="Hex Code">
 		      			</div>
 					</div>
+      			</div><br>
+      			<div class="row">
+					<div class="col-md-12">
+						Height of Slides: <input type="text" class="form-control" id="height" value="600" placeholder="Height">
+					</div>
+      			</div>
+      			<div class="row">
+					<div class="col-md-12">
+						Width of Slides: <input type="text" class="form-control" id="width" value="800" placeholder="Width">
+					</div>
       			</div>
 			</div>
 			<div class="col-md-offset-1 col-md-7">
@@ -50,12 +60,26 @@
 	<script type="text/javascript">
 		function generate(){
 			var numberOfSlides = $("#no").val();
+			var panelWidth = $("#width").val();
+			var panelHeight = $("#height").val();
+			var angle = 2*(Math.PI)/numberOfSlides;
+			var angleDeg = 360/numberOfSlides;
+			if(numberOfSlides < 2){
+				var radius = 0
+			} else {
+				var radius = (panelWidth/2)/(Math.sin(angle/2));
+			}
+			// console.log("Width: " + panelWidth);
+			// console.log("Height: " + panelHeight);
+			// console.log("Angle: " + angle);
+			// console.log("Radius: " + radius);
+
 			var impressString = "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Generated</title>";
-			impressString = impressString + "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\" integrity=\"sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==\" crossorigin=\"anonymous\"><style>.step {width: 800px; height:600px;font-size: 50pt;opacity: 1;background-color:#"+ $("#color").val() +";}" + $("#css").val() + "</style></head><body><div id=\"impress\">";
+			impressString = impressString + "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\" integrity=\"sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==\" crossorigin=\"anonymous\"><style>.step {width: " + panelWidth + "px; height: " + panelHeight + "px;font-size: 50pt;opacity: 1;background-color:#"+ $("#color").val() +";}" + $("#css").val() + "</style></head><body><div id=\"impress\">";
 
 			//begin dynamically generating slides
 			for (var i = 0; i < numberOfSlides; i++) {
-				impressString = impressString + "<div class=\"step text-center\"  data-x=\"" + i*1000 + "\" data-y=\"0\"><p>Slide " + (i+1) + "</p></div>";
+				impressString = impressString + "<div class=\"step text-center\" data-rotate-y=\""+(i*angleDeg)+"\" data-z=\"" + radius*Math.cos(angle*i) + "\" data-x=\"" + radius*Math.sin(angle*i) + "\"><p>Slide " + (i+1) + "</p></div>";
 			};
 
 			impressString = impressString + "</div><script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.min.js\"><\/script><script>impress().init();<\/script></body></html>";
