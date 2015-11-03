@@ -44,7 +44,7 @@
 
 		</div>
 		<div class="row">
-			<div class="col-md-3"><button onclick="generate()">Generate!</button></div>
+			<div class="col-md-3"><button onclick="generate()">Generate!</button>  <button onclick="ShowPreview()">Preview (popup)</button></div>
 		</div><br>
 		<div class="row">
 			<div class="col-md-2">
@@ -85,6 +85,13 @@
 			impressString = impressString + "</div><script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.min.js\"><\/script><script>impress().init();<\/script></body></html>";
 			$("#code").val(impressString);
 		}	
+		function ShowPreview() {
+			var hWndPreviewWindow = window.open("","Preview","width=800,height=600,scrollbars=yes,resizable=yes,status=0");
+
+			    hWndPreviewWindow.document.open();
+			    hWndPreviewWindow.document.writeln($("#code").val());
+			    hWndPreviewWindow.document.close();
+		}
 	</script>
 	</body>
 </html>
