@@ -6,3 +6,4 @@ At least, the spherical generating is coming soon. Currently, it's only in a car
 Click Generate and HTML will be created for you to drop into your own webpage. 
 
 See live demo: http://presentation.wedowd.com/
+
