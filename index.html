@@ -92,7 +92,7 @@
 
 			//begin dynamically generating slides
 			for (var i = 0; i < numberOfSlides; i++) {
-				impressString = impressString + "<div class=\"step text-center\" data-rotate-y=\""+(i*angleDeg)+"\" data-z=\"" + radius*Math.cos(angle*i) + "\" data-x=\"" + radius*Math.sin(angle*i) + "\"><p>Slide " + (i+1) + "</p></div>";
+				impressString = impressString + "<div class=\"step text-center\" data-rotate-y=\""+(i*angleDeg)+"\" data-z=\"" + Math.ceil(radius*Math.cos(angle*i)) + "\" data-x=\"" + Math.ceil(radius*Math.sin(angle*i)) + "\"><p>Slide " + (i+1) + "</p></div>";
 			};
 
 			impressString = impressString + "</div><script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.min.js\"><\/script><script>impress().init();<\/script></body></html>";
